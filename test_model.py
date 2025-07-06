@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from TextSummariser.components.prediction import PredictionPipeline, PredictionConfig
+from TextSummariser.components.prediction_demo import PredictionPipeline, PredictionConfig
 from pathlib import Path
 
 def test_summarization():
