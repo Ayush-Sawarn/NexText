@@ -4,6 +4,7 @@
 
 NexText is an end-to-end Natural Language Processing (NLP) platform designed for advanced text summarization and extensible NLP tasks. Leveraging state-of-the-art transformer models, NexText enables users to generate concise and meaningful summaries from dialogues and documents, making it ideal for chat, meeting, and document summarization use cases.
 
+
 ## Key Features
 
 - **State-of-the-art Summarization:** Utilizes the powerful [google/pegasus-cnn_dailymail](https://huggingface.co/google/pegasus-cnn_dailymail) transformer model for abstractive summarization.
