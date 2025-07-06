@@ -1,1 +1,11 @@
-key: value
+#here store the parameters for model training
+TrainingArguments:
+  num_train_epochs: 1
+  warmup_steps: 100
+  per_device_train_batch_size: 2
+  weight_decay: 0.01
+  logging_steps: 50
+  evaluation_strategy: steps
+  eval_steps: 200
+  save_steps: 1000
+  gradient_accumulation_steps: 8
