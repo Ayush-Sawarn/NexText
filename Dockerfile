@@ -1,19 +1,23 @@
 FROM python:3.8-slim-buster
 
-# Install system dependencies
+# Install system dependencies including build tools
 RUN apt-get update -y && \
-    apt-get install -y awscli && \
-    apt-get clean && \
+    apt-get install -y \
+    awscli \
+    build-essential \
+    gcc \
+    g++ \
+    && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copy requirements first for better caching
-COPY requirements.txt .
-
-# Install Python dependencies
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Install core dependencies first
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install transformers datasets evaluate && \
+    pip install fastapi uvicorn && \
+    pip install pandas PyYAML python-box ensure
 
 # Copy the rest of the application
 COPY . /app
