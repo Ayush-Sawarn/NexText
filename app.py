@@ -5,7 +5,8 @@ import os
 from fastapi.templating import Jinja2Templates
 from starlette.responses import RedirectResponse
 from fastapi.responses import Response
-from TextSummariser.pipeline.prediction import PredictionPipeline
+from TextSummariser.components.prediction import PredictionPipeline, PredictionConfig
+from pathlib import Path
 
 
 text:str = "What is Text Summarization?"
@@ -31,14 +32,21 @@ async def training():
 
 
 @app.post("/predict")
-async def predict_route(text):
+async def predict_route(text: str):
     try:
-
-        obj = PredictionPipeline()
-        text = obj.predict(text)
-        return text
+        # Initialize prediction pipeline with proper config
+        config = PredictionConfig(
+            model_path=Path("artifacts/model_trainer/pegasus-samsum-model"),
+            tokenizer_path=Path("artifacts/model_trainer/tokenizer"),
+            max_length=128,
+            min_length=10,
+            num_beams=4
+        )
+        obj = PredictionPipeline(config)
+        summary = obj.predict(text)
+        return {"summary": summary, "original_text": text}
     except Exception as e:
-        raise e
+        return {"error": str(e)}
     
 
 if __name__=="__main__":

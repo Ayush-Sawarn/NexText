@@ -26,6 +26,6 @@ COPY . /app
 RUN pip install -e .
 
 # Expose port for FastAPI
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["python3", "app.py"]
